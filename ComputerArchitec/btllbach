@@ -1,0 +1,34 @@
+.data
+prompt: .asciiz "Input string: "
+result: .asciiz "Answer: "
+buffer: .space 100
+zero: .asciiz "0.0"
+.text
+main:
+    # In prompt và nh?n chu?i ð?u vào t? ngý?i dùng
+    li $v0, 4
+    la $a0, prompt
+    syscall
+
+    # Ð?c chu?i ð?u vào t? ngý?i dùng
+    li $v0, 8
+    la $a0, buffer
+    li $a1, 100
+    syscall
+
+    # Tính toán k?t qu? t? chu?i ð?u vào và hi?n th?
+    li $v0, 4
+    la $a0, result
+    syscall
+
+    # G?i hàm tính toán và hi?n th? k?t qu?
+    jal calculate
+    li $v0, 2
+    mov.s $f12, $f1
+    syscall
+    
+    li $v0, 10
+    syscall
+    
+calculate:
+	
